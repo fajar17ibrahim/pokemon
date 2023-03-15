@@ -1,5 +1,6 @@
 package com.example.pokemon.room;
 
+import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -18,4 +19,9 @@ public interface MasterDao {
 
     @Query("SELECT * FROM tb_master")
     DataSource.Factory<Integer, DataItemTable> getDataListPaged();
+
+    @Query("SELECT * FROM tb_master WHERE id=:id")
+    LiveData<DataItemTable> getDataById(String id);
+
+
 }

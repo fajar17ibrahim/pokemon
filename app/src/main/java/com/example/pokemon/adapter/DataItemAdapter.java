@@ -25,10 +25,12 @@ import java.util.List;
 public class DataItemAdapter extends PagedListAdapter<DataItem, DataItemAdapter.ViewHolder> {
     private List<DataItemTable> dataItemTablesList = new ArrayList<>();
     private Context context;
+    private Callback callback;
 
-    public DataItemAdapter(Context context) {
+    public DataItemAdapter(Context context, Callback callback) {
         super(DIFF_CALLBACK);
         this.context = context;
+        this.callback = callback;
     }
 
     private static final DiffUtil.ItemCallback<DataItem> DIFF_CALLBACK =
@@ -60,6 +62,8 @@ public class DataItemAdapter extends PagedListAdapter<DataItem, DataItemAdapter.
                 .load(data.getImgSmall())
                 .centerCrop()
                 .into(holder.ivItem);
+
+        holder.itemView.setOnClickListener(v -> callback.onItemClick(data.getId()));
     }
 
     @Override
@@ -81,5 +85,9 @@ public class DataItemAdapter extends PagedListAdapter<DataItem, DataItemAdapter.
             ivItem = itemView.findViewById(R.id.iv_item);
             tvName = itemView.findViewById(R.id.tv_name);
         }
+    }
+
+    public interface Callback {
+        void onItemClick(String id);
     }
 }

@@ -19,8 +19,6 @@ public class MainViewModel extends AndroidViewModel {
     private MainRepository mainRepository;
     private Activity activity;
 
-    private MutableLiveData<List<DataItem>> listMutableLiveData = new MutableLiveData<>();
-
     public MainViewModel(@NonNull Application application) {
         super(application);
     }
@@ -33,19 +31,10 @@ public class MainViewModel extends AndroidViewModel {
     public void getDatasFromServer() {
         mainRepository.getDatasFromServer(new MainViewModelCallback() {
             @Override
-            public void onSuccess(List<DataItem> dataItems) {
-                listMutableLiveData.postValue(dataItems);
-            }
-
-            @Override
             public void onFailure(String message) {
                 Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    public MutableLiveData<List<DataItem>> getDatas() {
-        return listMutableLiveData;
     }
 
     public LiveData<PagedList<DataItemTable>> getDataItems(int page) {

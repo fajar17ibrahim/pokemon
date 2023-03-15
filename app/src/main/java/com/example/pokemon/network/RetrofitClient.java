@@ -1,5 +1,9 @@
 package com.example.pokemon.network;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -37,4 +41,5 @@ public class RetrofitClient {
     public ApiService getMyApi() {
         return myApi;
     }
+
 }
